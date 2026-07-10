@@ -18,4 +18,8 @@ describe("clampUnit", () => {
     expect(clampUnit(0)).toBe(0);
     expect(clampUnit(1)).toBe(1);
   });
+
+  it("falls back to 0 for NaN instead of leaking it into tiling state", () => {
+    expect(clampUnit(NaN)).toBe(0);
+  });
 });
