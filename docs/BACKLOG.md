@@ -75,7 +75,7 @@ one, driving the shared window list all four panes consume.
 
 ## Epic 2 — Interaction & comparison UX
 
-### [ ] 2.1 Drag windows to reposition, live reflow across all four panes
+### [x] 2.1 Drag windows to reposition, live reflow across all four panes
 
 Dragging a window rectangle in any one pane updates that window's position
 in the shared state and re-tiles all four panes.
