@@ -57,7 +57,7 @@ function requireElement<T extends Element>(
   const el = root.querySelector(selector);
   if (!(el instanceof ctor)) {
     throw new Error(
-      `Tiler: expected "${selector}" to be present in the mounted markup`,
+      `Reflow: expected "${selector}" to be present in the mounted markup`,
     );
   }
   return el;
