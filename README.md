@@ -23,18 +23,23 @@ tiling algorithms behave instead of reading about them.
 Drop five rectangles onto the canvas and watch all four algorithms lay them
 out simultaneously as you add, remove, and drag windows around.
 
-## Planned features
+## Features
 
-- Four independent tiling engines (BSP, spiral, master-stack, dwindle) that
-  each consume the same window list and produce their own layout
-- A shared canvas-based interaction surface: add, remove, drag, and resize
-  "windows" and see every algorithm's layout update live
-- Per-algorithm labeled panes so the four layouts are visually comparable
-  side by side
-- Smooth transition animation when a layout reflows, so the _reasoning_ of
-  each algorithm is visible, not just the end state
-- A small control panel: window count, aspect-ratio jitter, and a way to
-  step through the layout history
+- Four independent tiling engines (BSP, spiral, master-stack, dwindle),
+  each a pure function that consumes the same window list and produces its
+  own layout
+- A shared window list: add or remove a window and all four panes re-tile
+  from the same state within one animation frame
+- Per-algorithm labeled panes with a live rect count, styled as a
+  blueprint's corner title-block stamp
+- Responsive 2×2 grid on desktop that stacks to one column on phone
+
+## Planned
+
+- Drag a window in any pane to reposition it, reflowing all four panes live
+- Cross-pane highlight: hovering a window in one pane highlights the same
+  window everywhere else
+- Tweened reflow/add/remove animation instead of instant redraws
 
 ## Stack
 
@@ -46,9 +51,11 @@ out simultaneously as you add, remove, and drag windows around.
 
 ## Status
 
-Early scaffold — see [`docs/VISION.md`](docs/VISION.md),
-[`docs/DESIGN.md`](docs/DESIGN.md), and [`docs/BACKLOG.md`](docs/BACKLOG.md)
-for the plan.
+The core comparison engine is live: `npm run dev` opens straight into the
+four-pane grid, seeded with windows, ready to add/remove and compare. See
+[`docs/VISION.md`](docs/VISION.md), [`docs/DESIGN.md`](docs/DESIGN.md),
+[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), and
+[`docs/BACKLOG.md`](docs/BACKLOG.md) for the plan and what's left.
 
 ## Development
 
