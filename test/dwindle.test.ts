@@ -14,7 +14,9 @@ describe("dwindle", () => {
 
   it("gives a single window the full unit square", () => {
     const [w] = windows(1);
-    expect(dwindle([w])).toEqual([{ id: w.id, x: 0, y: 0, width: 1, height: 1 }]);
+    expect(dwindle([w])).toEqual([
+      { id: w.id, x: 0, y: 0, width: 1, height: 1 },
+    ]);
   });
 
   it("splits two windows into vertical halves", () => {
@@ -24,7 +26,13 @@ describe("dwindle", () => {
 
     const byId = Object.fromEntries(rects.map((r) => [r.id, r]));
     expect(byId[a.id]).toEqual({ id: a.id, x: 0, y: 0, width: 0.5, height: 1 });
-    expect(byId[b.id]).toEqual({ id: b.id, x: 0.5, y: 0, width: 0.5, height: 1 });
+    expect(byId[b.id]).toEqual({
+      id: b.id,
+      x: 0.5,
+      y: 0,
+      width: 0.5,
+      height: 1,
+    });
   });
 
   it("tiles five windows with no overlaps and full coverage", () => {

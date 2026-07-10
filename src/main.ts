@@ -18,7 +18,12 @@ interface PaneConfig {
 const PANES: PaneConfig[] = [
   { id: "bsp", label: "BSP", stamp: "BSP·01", algorithm: bsp },
   { id: "spiral", label: "Spiral", stamp: "SPIRAL·02", algorithm: spiral },
-  { id: "master", label: "Master-Stack", stamp: "MASTER·03", algorithm: masterStack },
+  {
+    id: "master",
+    label: "Master-Stack",
+    stamp: "MASTER·03",
+    algorithm: masterStack,
+  },
   { id: "dwindle", label: "Dwindle", stamp: "DWINDLE·04", algorithm: dwindle },
 ];
 
@@ -44,7 +49,9 @@ function requireElement<T extends Element>(
 ): T {
   const el = root.querySelector(selector);
   if (!(el instanceof ctor)) {
-    throw new Error(`Tiler: expected "${selector}" to be present in the mounted markup`);
+    throw new Error(
+      `Tiler: expected "${selector}" to be present in the mounted markup`,
+    );
   }
   return el;
 }
@@ -74,7 +81,11 @@ export function mountApp(root: HTMLElement): void {
   `;
 
   const addButton = requireElement(root, "#add-window", HTMLButtonElement);
-  const removeButton = requireElement(root, "#remove-window", HTMLButtonElement);
+  const removeButton = requireElement(
+    root,
+    "#remove-window",
+    HTMLButtonElement,
+  );
   const countLabel = requireElement(root, "#window-count", HTMLElement);
 
   const canvases = new Map<string, HTMLCanvasElement>();
@@ -83,7 +94,9 @@ export function mountApp(root: HTMLElement): void {
     if (canvas instanceof HTMLCanvasElement) canvases.set(pane.id, canvas);
   });
 
-  const store = new WindowStore(SEED_GEOMETRY.map(([x, y, w, h]) => createWindow(x, y, w, h)));
+  const store = new WindowStore(
+    SEED_GEOMETRY.map(([x, y, w, h]) => createWindow(x, y, w, h)),
+  );
 
   function render(windows: TileWindow[]): void {
     countLabel.textContent = `${windows.length} window${windows.length === 1 ? "" : "s"}`;

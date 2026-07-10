@@ -11,7 +11,10 @@ interface Region {
 }
 
 /** Carves one rect off a region in the given direction, returning the rect and what remains. */
-function carve(region: Region, direction: Direction): { rect: TileRect; rest: Region } {
+function carve(
+  region: Region,
+  direction: Direction,
+): { rect: TileRect; rest: Region } {
   const { x, y, width, height } = region;
 
   switch (direction) {

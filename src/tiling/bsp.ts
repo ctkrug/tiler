@@ -19,14 +19,28 @@ function split(
     const firstWidth = width / 2;
     return [
       ...split(first, x, y, firstWidth, height, depth + 1),
-      ...split(second, x + firstWidth, y, width - firstWidth, height, depth + 1),
+      ...split(
+        second,
+        x + firstWidth,
+        y,
+        width - firstWidth,
+        height,
+        depth + 1,
+      ),
     ];
   }
 
   const firstHeight = height / 2;
   return [
     ...split(first, x, y, width, firstHeight, depth + 1),
-    ...split(second, x, y + firstHeight, width, height - firstHeight, depth + 1),
+    ...split(
+      second,
+      x,
+      y + firstHeight,
+      width,
+      height - firstHeight,
+      depth + 1,
+    ),
   ];
 }
 

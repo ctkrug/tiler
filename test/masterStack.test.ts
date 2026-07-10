@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_MASTER_FRACTION, masterStack } from "../src/tiling/masterStack";
+import {
+  DEFAULT_MASTER_FRACTION,
+  masterStack,
+} from "../src/tiling/masterStack";
 import { createWindow } from "../src/tiling/window";
 import { assertTilesUnitSquare } from "./geometry";
 
@@ -14,7 +17,9 @@ describe("masterStack", () => {
 
   it("gives a single window the full unit square", () => {
     const [w] = windows(1);
-    expect(masterStack([w])).toEqual([{ id: w.id, x: 0, y: 0, width: 1, height: 1 }]);
+    expect(masterStack([w])).toEqual([
+      { id: w.id, x: 0, y: 0, width: 1, height: 1 },
+    ]);
   });
 
   it("splits two windows into master and one stacked pane at the default fraction", () => {

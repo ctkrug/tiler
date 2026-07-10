@@ -7,7 +7,11 @@ export interface PaneOptions {
   count: number;
 }
 
-function drawGrid(ctx: CanvasRenderingContext2D, width: number, height: number): void {
+function drawGrid(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+): void {
   ctx.strokeStyle = theme.gridLine;
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -32,11 +36,21 @@ function drawRect(
   const inset = 1.5;
 
   ctx.fillStyle = theme.rectFill;
-  ctx.fillRect(px.x + inset, px.y + inset, px.width - inset * 2, px.height - inset * 2);
+  ctx.fillRect(
+    px.x + inset,
+    px.y + inset,
+    px.width - inset * 2,
+    px.height - inset * 2,
+  );
 
   ctx.strokeStyle = theme.rectStroke;
   ctx.lineWidth = 1.5;
-  ctx.strokeRect(px.x + inset, px.y + inset, px.width - inset * 2, px.height - inset * 2);
+  ctx.strokeRect(
+    px.x + inset,
+    px.y + inset,
+    px.width - inset * 2,
+    px.height - inset * 2,
+  );
 
   if (px.width > 48 && px.height > 24) {
     ctx.fillStyle = theme.textMuted;
@@ -76,7 +90,11 @@ function drawStamp(
  * Renders one algorithm pane: sizes the backing store to devicePixelRatio,
  * draws the blueprint grid, every tile rect, and the corner title-block stamp.
  */
-export function renderPane(canvas: HTMLCanvasElement, rects: TileRect[], options: PaneOptions): void {
+export function renderPane(
+  canvas: HTMLCanvasElement,
+  rects: TileRect[],
+  options: PaneOptions,
+): void {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 

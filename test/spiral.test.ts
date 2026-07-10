@@ -14,7 +14,9 @@ describe("spiral", () => {
 
   it("gives a single window the full unit square", () => {
     const [w] = windows(1);
-    expect(spiral([w])).toEqual([{ id: w.id, x: 0, y: 0, width: 1, height: 1 }]);
+    expect(spiral([w])).toEqual([
+      { id: w.id, x: 0, y: 0, width: 1, height: 1 },
+    ]);
   });
 
   it("splits two windows with no overlap and full coverage", () => {
@@ -35,9 +37,27 @@ describe("spiral", () => {
     const byId = Object.fromEntries(rects.map((r) => [r.id, r]));
 
     expect(byId[a.id]).toEqual({ id: a.id, x: 0, y: 0, width: 0.5, height: 1 });
-    expect(byId[b.id]).toEqual({ id: b.id, x: 0.5, y: 0, width: 0.5, height: 0.5 });
-    expect(byId[c.id]).toEqual({ id: c.id, x: 0.75, y: 0.5, width: 0.25, height: 0.5 });
-    expect(byId[d.id]).toEqual({ id: d.id, x: 0.5, y: 0.5, width: 0.25, height: 0.5 });
+    expect(byId[b.id]).toEqual({
+      id: b.id,
+      x: 0.5,
+      y: 0,
+      width: 0.5,
+      height: 0.5,
+    });
+    expect(byId[c.id]).toEqual({
+      id: c.id,
+      x: 0.75,
+      y: 0.5,
+      width: 0.25,
+      height: 0.5,
+    });
+    expect(byId[d.id]).toEqual({
+      id: d.id,
+      x: 0.5,
+      y: 0.5,
+      width: 0.25,
+      height: 0.5,
+    });
   });
 
   it("shrinks each successive fraction of the remaining region", () => {
