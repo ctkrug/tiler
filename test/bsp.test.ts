@@ -36,6 +36,12 @@ describe("bsp", () => {
     expect(xs.size).toBeGreaterThan(1);
   });
 
+  it("splits the root (depth 0) along x while keeping full height", () => {
+    const rects = bsp(windows(2));
+    expect(rects.every((r) => r.height === 1)).toBe(true);
+    expect(rects[0].x).not.toBe(rects[1].x);
+  });
+
   it("tiles the unit square for a range of window counts (property check)", () => {
     for (let n = 1; n <= 12; n += 1) {
       const rects = bsp(windows(n));
