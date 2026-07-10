@@ -66,7 +66,12 @@ function requireElement<T extends Element>(
 function paneMarkup(pane: PaneConfig): string {
   return `
     <section class="pane" aria-label="${pane.label} layout">
-      <canvas class="pane-canvas" data-pane="${pane.id}"></canvas>
+      <canvas
+        class="pane-canvas"
+        data-pane="${pane.id}"
+        tabindex="0"
+        aria-label="${pane.label} layout. Arrow keys select a window, Enter or Space picks it up, arrow keys then reorder it, Enter or Escape drops it."
+      ></canvas>
     </section>
   `;
 }
@@ -85,6 +90,7 @@ export function mountApp(root: HTMLElement): void {
     <main class="pane-grid">
       ${PANES.map(paneMarkup).join("")}
     </main>
+    <span id="kbd-status" class="sr-only" role="status" aria-live="polite"></span>
   `;
 
   const addButton = requireElement(root, "#add-window", HTMLButtonElement);
@@ -94,6 +100,7 @@ export function mountApp(root: HTMLElement): void {
     HTMLButtonElement,
   );
   const countLabel = requireElement(root, "#window-count", HTMLElement);
+  const kbdStatus = requireElement(root, "#kbd-status", HTMLElement);
 
   const canvases = new Map<string, HTMLCanvasElement>();
   PANES.forEach((pane) => {
@@ -111,6 +118,7 @@ export function mountApp(root: HTMLElement): void {
   let hoveredId: string | null = null;
   let dragWindowId: string | null = null;
   let dragPaneId: string | null = null;
+  let grabbedId: string | null = null;
   let windowCount = 0;
   let rafHandle = 0;
 
@@ -198,6 +206,10 @@ export function mountApp(root: HTMLElement): void {
     paintIdle();
   }
 
+  function announce(message: string): void {
+    kbdStatus.textContent = message;
+  }
+
   PANES.forEach((pane) => {
     const canvas = canvases.get(pane.id);
     if (!canvas) return;
@@ -244,6 +256,62 @@ export function mountApp(root: HTMLElement): void {
 
     canvas.addEventListener("pointerleave", () => {
       if (dragPaneId !== null) return;
+      setHovered(null);
+    });
+
+    canvas.addEventListener("keydown", (event) => {
+      const ids = (paneRects.get(pane.id) ?? []).map((r) => r.id);
+      if (ids.length === 0) return;
+
+      const isNext = event.key === "ArrowRight" || event.key === "ArrowDown";
+      const isPrev = event.key === "ArrowLeft" || event.key === "ArrowUp";
+
+      if (isNext || isPrev) {
+        event.preventDefault();
+        const step = isNext ? 1 : -1;
+        if (grabbedId) {
+          store.moveByOffset(grabbedId, step);
+          announce(
+            `Moved ${grabbedId} ${isNext ? "later" : "earlier"} in ${pane.label}.`,
+          );
+          return;
+        }
+        const currentIndex = hoveredId ? ids.indexOf(hoveredId) : -1;
+        const nextIndex =
+          currentIndex === -1
+            ? 0
+            : (currentIndex + step + ids.length) % ids.length;
+        setHovered(ids[nextIndex]);
+        announce(
+          `Selected ${ids[nextIndex]}, window ${nextIndex + 1} of ${ids.length}, in ${pane.label}.`,
+        );
+        return;
+      }
+
+      if (event.key === "Enter" || event.key === " ") {
+        if (!hoveredId || !ids.includes(hoveredId)) return;
+        event.preventDefault();
+        if (grabbedId === hoveredId) {
+          grabbedId = null;
+          announce(`Dropped ${hoveredId} in ${pane.label}.`);
+        } else {
+          grabbedId = hoveredId;
+          announce(
+            `Picked up ${hoveredId} in ${pane.label}. Arrow keys reorder it, Enter drops it.`,
+          );
+        }
+        return;
+      }
+
+      if (event.key === "Escape" && grabbedId) {
+        event.preventDefault();
+        announce(`Cancelled reordering ${grabbedId} in ${pane.label}.`);
+        grabbedId = null;
+      }
+    });
+
+    canvas.addEventListener("focusout", () => {
+      grabbedId = null;
       setHovered(null);
     });
   });
