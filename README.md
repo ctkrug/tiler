@@ -1,5 +1,8 @@
 # Tiler
 
+[![CI](https://github.com/ctkrug/tiler/actions/workflows/ci.yml/badge.svg)](https://github.com/ctkrug/tiler/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Drag windows onto a canvas and watch four tiling-window-manager algorithms —
 **BSP**, **spiral**, **master-stack**, and **dwindle** — reflow them live,
 side by side, in real time.
