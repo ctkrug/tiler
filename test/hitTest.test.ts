@@ -26,6 +26,10 @@ describe("findRectAt", () => {
   it("treats rect boundaries as inclusive", () => {
     expect(findRectAt(RECTS, { x: 0.5, y: 0 })).toBe("a");
   });
+
+  it("returns null rather than a false match for a NaN point", () => {
+    expect(findRectAt(RECTS, { x: NaN, y: NaN })).toBeNull();
+  });
 });
 
 describe("nearestRectId", () => {
