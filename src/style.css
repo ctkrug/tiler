@@ -107,6 +107,7 @@ body {
 .toolbar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-3);
   padding: var(--space-3);
   background: var(--surface-2);
@@ -122,6 +123,7 @@ body {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.875rem;
+  white-space: nowrap;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius);
   border: 1px solid rgba(63, 208, 224, 0.35);
