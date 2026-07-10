@@ -3,10 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tiler — compare tiling window manager algorithms live</title>
+    <title>Reflow — compare tiling window manager layouts live</title>
     <meta
       name="description"
-      content="Drag windows onto a canvas and watch BSP, spiral, master-stack, and dwindle tiling algorithms reflow them live, side by side."
+      content="Reflow shows BSP, spiral, master-stack, and dwindle tiling side by side. Drag one window and watch all four window manager layouts reflow at once."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Reflow — compare tiling window manager layouts live"
+    />
+    <meta
+      property="og:description"
+      content="Add windows, drag one, and watch BSP, spiral, master-stack, and dwindle retile the same list side by side in the browser."
     />
     <link
       rel="icon"
@@ -23,6 +32,106 @@
   </head>
   <body>
     <div id="app"></div>
+
+    <section class="about" aria-labelledby="about-title">
+      <div class="about-inner">
+        <h1 id="about-title">
+          Compare tiling window manager layouts, side by side
+        </h1>
+        <p>
+          Reflow is a browser tool for comparing how tiling window managers
+          arrange your windows. Add a few windows, drag one around, and four
+          algorithms (BSP, spiral, master-stack, and dwindle) retile the same
+          list at the same moment, so you can watch how each one behaves instead
+          of reading a description of it.
+        </p>
+
+        <h2>How the four layouts differ</h2>
+        <ul>
+          <li>
+            <strong>BSP</strong> recursively splits the largest region in half,
+            alternating vertical and horizontal cuts. It is how i3 and bspwm
+            feel.
+          </li>
+          <li>
+            <strong>Spiral (Fibonacci)</strong> carves a shrinking slice off the
+            remaining space for each new window, winding around the screen.
+            Common in Hyprland and dwm patches.
+          </li>
+          <li>
+            <strong>Master-stack</strong> keeps the first window in a large
+            master area on the left; everything else shares a vertical stack on
+            the right. The classic dwm and xmonad default.
+          </li>
+          <li>
+            <strong>Dwindle</strong> halves the leftover region toward one
+            corner on every insertion, so later windows get progressively
+            smaller.
+          </li>
+        </ul>
+
+        <h2>Questions</h2>
+        <dl class="faq">
+          <dt>What is a tiling window manager?</dt>
+          <dd>
+            A window manager that arranges windows in non-overlapping tiles
+            instead of free-floating, overlapping panels. You add a window and
+            the layout algorithm places it automatically, so you rarely drag or
+            resize anything by hand.
+          </dd>
+
+          <dt>How do BSP, spiral, master-stack, and dwindle differ?</dt>
+          <dd>
+            They differ in where a new window lands and what shrinks to make
+            room: BSP halves the biggest region, spiral winds slices around the
+            screen, master-stack keeps one big pane plus a stack, and dwindle
+            keeps halving toward a corner. Reflow shows all four reacting to the
+            same input at once.
+          </dd>
+
+          <dt>Which real window managers use these layouts?</dt>
+          <dd>
+            BSP drives bspwm and i3's split model; master-stack is the dwm and
+            xmonad default; spiral/Fibonacci ships with dwm patches and
+            Hyprland; dwindle is a built-in Hyprland layout. Reflow is a
+            teaching model of the algorithms, not a config generator.
+          </dd>
+
+          <dt>Do I need to install anything?</dt>
+          <dd>
+            No. Reflow runs entirely in the browser with no account and no
+            download. Nothing is saved; refresh to start over.
+          </dd>
+
+          <dt>Can I reorder windows?</dt>
+          <dd>
+            Yes. Drag a window onto another to change its slot, or use the
+            keyboard: arrow keys select, Enter picks a window up, arrow keys
+            move it, Enter or Escape drops it. Reordering reflows all four panes
+            together.
+          </dd>
+        </dl>
+
+        <footer class="site-footer">
+          <a
+            href="https://github.com/ctkrug/tiler"
+            target="_blank"
+            rel="noopener"
+            >Reflow on GitHub ↗</a
+          >
+          <span>
+            More by Charlie Krug →
+            <a
+              href="https://apps.charliekrug.com"
+              target="_blank"
+              rel="noopener"
+              >apps.charliekrug.com</a
+            >
+          </span>
+        </footer>
+      </div>
+    </section>
+
     <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
