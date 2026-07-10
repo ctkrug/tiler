@@ -51,7 +51,7 @@ Implement master-pane + stack tiling as a pure function.
 - Unit tests cover N = 0, 1, 2, 5 windows and verify the master rect's
   width fraction.
 
-### [ ] 1.5 Dwindle tiling algorithm
+### [x] 1.5 Dwindle tiling algorithm
 
 Implement dwindle (halving) tiling as a pure function.
 
