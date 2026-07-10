@@ -222,6 +222,7 @@ export function mountApp(root: HTMLElement): void {
       if (!hitId) return;
       dragWindowId = hitId;
       dragPaneId = pane.id;
+      grabbedId = null; // a pointer drag always supersedes a stale keyboard grab
       canvas.setPointerCapture(event.pointerId);
       setHovered(hitId);
     });
