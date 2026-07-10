@@ -29,7 +29,7 @@ Implement binary-space-partition tiling as a pure function.
   overlaps.
 - Unit tests cover N = 0, 1, 2, 5 windows.
 
-### [ ] 1.3 Spiral tiling algorithm
+### [x] 1.3 Spiral tiling algorithm
 
 Implement spiral (fibonacci-style) tiling as a pure function.
 
