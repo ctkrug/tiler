@@ -105,7 +105,7 @@ of tiled windows, per the DESIGN.md signature-detail spec.
   `MASTER-STACK`, `DWINDLE`) — not generic "Pane 1..4".
 - The count updates immediately after any add/remove.
 
-### [ ] 2.4 Responsive layout: desktop 2×2 grid, phone stacked
+### [x] 2.4 Responsive layout: desktop 2×2 grid, phone stacked
 
 The four-pane grid composes at both 1440×900 and 390×844 with no
 horizontal scroll or overlap.
