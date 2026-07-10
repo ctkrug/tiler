@@ -142,7 +142,7 @@ Implement the juice plan's tweens for layout changes.
 - `prefers-reduced-motion: reduce` disables the tweens (rects update
   instantly) without breaking layout correctness.
 
-### [ ] 3.3 Favicon and wordmark brand assets
+### [x] 3.3 Favicon and wordmark brand assets
 
 Ship a generated (code-based, no binary asset) favicon and a designed
 wordmark treatment.
