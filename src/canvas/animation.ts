@@ -128,6 +128,8 @@ export function sampleAnimation(
   now: number,
   durations: TweenDurations = DEFAULT_DURATIONS,
 ): AnimationFrame {
+  if (state.transitions.length === 0) return { rects: [], done: true };
+
   const elapsed = now - state.startedAt;
   const rects: RenderRect[] = [];
   for (const transition of state.transitions) {
