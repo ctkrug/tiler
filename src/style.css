@@ -167,6 +167,12 @@ body {
   display: block;
   width: 100%;
   height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.pane-canvas:active {
+  cursor: grabbing;
 }
 
 @media (max-width: 768px) {
