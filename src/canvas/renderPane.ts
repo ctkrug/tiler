@@ -5,6 +5,8 @@ import { theme } from "./theme";
 export interface PaneOptions {
   stamp: string;
   count: number;
+  /** Id of the window to draw with the cross-pane hover/drag highlight, if any. */
+  highlightId?: string | null;
 }
 
 function drawGrid(
@@ -31,11 +33,18 @@ function drawRect(
   rect: TileRect,
   width: number,
   height: number,
+  highlighted: boolean,
 ): void {
   const px = toPixelRect(rect, width, height);
   const inset = 1.5;
 
-  ctx.fillStyle = theme.rectFill;
+  ctx.save();
+  if (highlighted) {
+    ctx.shadowColor = theme.highlightGlow;
+    ctx.shadowBlur = 12;
+  }
+
+  ctx.fillStyle = highlighted ? theme.highlightFill : theme.rectFill;
   ctx.fillRect(
     px.x + inset,
     px.y + inset,
@@ -43,14 +52,15 @@ function drawRect(
     px.height - inset * 2,
   );
 
-  ctx.strokeStyle = theme.rectStroke;
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = highlighted ? theme.highlightStroke : theme.rectStroke;
+  ctx.lineWidth = highlighted ? 2.5 : 1.5;
   ctx.strokeRect(
     px.x + inset,
     px.y + inset,
     px.width - inset * 2,
     px.height - inset * 2,
   );
+  ctx.restore();
 
   if (px.width > 48 && px.height > 24) {
     ctx.fillStyle = theme.textMuted;
@@ -125,7 +135,15 @@ export function renderPane(
   if (rects.length === 0) {
     drawEmptyState(ctx, cssWidth, cssHeight);
   } else {
-    rects.forEach((rect) => drawRect(ctx, rect, cssWidth, cssHeight));
+    rects.forEach((rect) =>
+      drawRect(
+        ctx,
+        rect,
+        cssWidth,
+        cssHeight,
+        rect.id === options.highlightId,
+      ),
+    );
   }
   drawStamp(ctx, options, cssWidth, cssHeight);
 }
