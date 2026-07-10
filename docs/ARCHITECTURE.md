@@ -62,8 +62,12 @@ pane, not a free-form move of raw coordinates.
   no DOM/canvas dependency, so they're unit-tested (`test/*.test.ts`) in
   isolation via geometric properties (full coverage, no overlaps) rather
   than pixel snapshots. `test/geometry.ts` holds the shared assertion
-  helpers (`assertTilesUnitSquare`).
-- **`src/interaction/clamp.ts`** — `clampUnit`: clamps a value into `[0,1]`.
+  helpers (`assertTilesUnitSquare`). `test/properties.test.ts` additionally
+  fuzzes all four with `fast-check`-generated window counts (0-40) rather
+  than the fixed 0/1/2/5 cases the per-algorithm suites hand-pick.
+- **`src/interaction/clamp.ts`** — `clampUnit`: clamps a value into `[0,1]`,
+  falling back to `0` for `NaN` (`Math.min`/`Math.max` both propagate NaN
+  unchanged, so this needs an explicit guard).
 - **`src/interaction/hitTest.ts`** — `findRectAt` (which rect, if any, a
   point is inside — drag start) and `nearestRectId` (the closest other
   rect to a point, excluding one id — drop target), both pure geometry
@@ -119,12 +123,13 @@ none` + grab/grabbing cursors on the pane canvases for dragging.
 
 ```bash
 npm install
-npm run dev        # Vite dev server, opens straight into the live grid
-npm test            # vitest: all tiling algorithms + WindowStore + layout
-npm run typecheck   # tsc --noEmit
-npm run lint         # eslint
-npm run format:check # prettier --check
-npm run build         # tsc --noEmit && vite build -> dist/
+npm run dev                # Vite dev server, opens straight into the live grid
+npm test                   # vitest: all tiling algorithms + WindowStore + layout
+npx vitest run --coverage  # same, plus a v8 line/branch coverage report
+npm run typecheck          # tsc --noEmit
+npm run lint                # eslint
+npm run format:check        # prettier --check
+npm run build                # tsc --noEmit && vite build -> dist/
 ```
 
 ## Extending
