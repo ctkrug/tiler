@@ -4,11 +4,21 @@
   "private": true,
   "description": "Drag windows onto a canvas and watch four tiling-window-manager algorithms reflow them live, side by side.",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ctkrug/tiler.git"
+  },
+  "homepage": "https://github.com/ctkrug/tiler#readme",
+  "bugs": "https://github.com/ctkrug/tiler/issues",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
