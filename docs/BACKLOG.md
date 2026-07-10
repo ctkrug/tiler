@@ -118,7 +118,7 @@ horizontal scroll or overlap.
 
 ## Epic 3 — Design polish & deployment
 
-### [ ] 3.1 Apply the blueprint visual system
+### [x] 3.1 Apply the blueprint visual system
 
 Implement the tokens, fonts, and grid background from `docs/DESIGN.md`
 across the whole app.
