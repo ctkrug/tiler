@@ -35,8 +35,11 @@ out simultaneously as you add, remove, and drag windows around.
 - Responsive 2×2 grid on desktop that stacks to one column on phone
 - Drag a window in any pane onto another to reorder it, reflowing all four
   panes live — works with mouse or touch
-- Cross-pane highlight: hovering (or dragging) a window in one pane
-  highlights the same window everywhere else
+- Keyboard-accessible reordering: Tab into a pane, arrow keys select a
+  window, Enter/Space picks it up, arrow keys move it, Enter/Escape drops
+  or cancels — announced live for screen readers
+- Cross-pane highlight: hovering (or dragging, or keyboard-selecting) a
+  window in one pane highlights the same window everywhere else
 - Tweened reflow/add/remove animation (ease-out, ~100-140ms), skipped
   entirely for `prefers-reduced-motion: reduce`
 
